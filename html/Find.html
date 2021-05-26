@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+     
+
+	$(function(){
+		$("#btn").click(function(){
+			var x = document.getElementById("block_id").value;    
+			$.ajax({
+				url:"http://localhost:8080/block/" + x,
+				type: "GET",
+				success:function(data,status){
+					var content = "";
+					$.each(data,function(selector, context) {
+						content = content + selector + ":" +　context + "<br>";
+					})
+					$("#content").prepend("<br>");
+					$("#content").prepend("区块高度：" + x + "<br>" +content);
+					
+					
+				},
+				error:function(XMLHttpRequest, textStatus,
+						errorThrown){
+						alert("请求失败1");
+				}
+			})
+		})
+		$("#btn_t").click(function(){
+			var x = document.getElementById("tx_hash").value;    
+			$.ajax({
+				url:"http://localhost:8080/hash/" + x,
+				type: "GET",
+				success:function(data,status){
+					var content = "";
+					$.each(data,function(selector, context) {
+						content = content + selector + ":" +　context + "<br>";
+					})
+					$("#content").prepend("<br>");
+					$("#content").prepend("交易信息："+ "<br>" +content);
+					
+				},
+				error:function(XMLHttpRequest, textStatus,
+						errorThrown){
+						alert("请求失败1");
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<br>输入区块高度:<br><input type="text" id="block_id" value="4000000">
+	<button id="btn">查询</button><br>
+	<br>输入交易hash值:<br><input type="text" id="tx_hash" value="0">
+	<button id="btn_t">查询</button><br>
+	<div id="content"></div>
+</body>
+</html>
+
