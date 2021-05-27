@@ -1,14 +1,12 @@
-package com.example.Service;
+package com.example.service;
 
-import ch.qos.logback.classic.spi.STEUtil;
-import com.example.DB.JDBCUtils;
+import com.example.untils.JDBCUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.example.pojo.BlockHead;
@@ -20,7 +18,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 @Controller
-public class demo {
+public class Restful {
     /** 得到每个区块内数据  **/
     public static JSONObject getBlockData(Integer id) throws UnirestException {
         HttpResponse response =
@@ -182,6 +180,7 @@ public class demo {
 
     }
 
+    //查找特点id区块信息
     public static BlockHead selectDB(int i) throws UnirestException, SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
@@ -230,6 +229,7 @@ public class demo {
           return one;
     }
 
+    //查找指定hash交易信息
     public static Tx selectTx(String i) throws UnirestException, SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
@@ -272,8 +272,9 @@ public class demo {
         return one;
     }
 
+    //数据库存入信息
     public static void insertDB ( int i) throws UnirestException, SQLException {
-            demo a = new demo();
+            Restful a = new Restful();
 
             Connection con = null;
             PreparedStatement stmt = null;
@@ -332,6 +333,7 @@ public class demo {
 
         }
 
+    //查找区块对应所有交易
     public static List<String> selectTotalTx (String block_hash){
         Connection con = null;
         PreparedStatement stmt = null;

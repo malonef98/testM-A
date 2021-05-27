@@ -1,4 +1,4 @@
-package com.example;
+package com.example.test;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;

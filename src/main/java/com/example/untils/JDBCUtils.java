@@ -1,4 +1,4 @@
-package com.example.DB;
+package com.example.untils;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.example.Service;
+package com.example.service;
 
 public class ErrorMessage {
     int code;

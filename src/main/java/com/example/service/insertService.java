@@ -1,8 +1,7 @@
-package com.example.Service;
+package com.example.service;
 
-import com.example.DB.JDBCUtils;
+import com.example.untils.JDBCUtils;
 import com.example.pojo.Tx;
-import lombok.extern.apachecommons.CommonsLog;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
