@@ -142,7 +142,7 @@ public class Restful {
             System.out.println(m.getExtraData());
 
             total = selectTotalTx(m.getHash());
-            m.setTotaltx(total);
+           // m.setTotaltx(total);
 
         } catch (UnirestException e) {
             e.printStackTrace();
@@ -172,11 +172,6 @@ public class Restful {
 
     @RequestMapping(value = "/delete/{id}",method = RequestMethod.DELETE)
     public  void deleteId (@PathVariable("id") int id ){
-
-    }
-
-    @RequestMapping(value = "/put/{id}",method = RequestMethod.PUT)
-    public  void putId (@PathVariable("id") int id ){
 
     }
 
