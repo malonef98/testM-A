@@ -1,7 +1,6 @@
 package com.example.test.before;
 
 import com.example.domain.entity.TxInfo;
-import com.example.untils.JDBCUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;

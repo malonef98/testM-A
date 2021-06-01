@@ -49,7 +49,7 @@ public class BlockInfoServiceImpl implements BlockInfoService {
         List<String> txCollection = new ArrayList<String>();
         for (int i = 4000000 ; i < 4001000 ; i ++){
             try {
-                bh = findInfo.findBlockByid(i);
+                bh = findInfo.findBlockByHeight(i);
                 Set<String> Txcollection = new HashSet<>();
                 txCollection = findInfo.getTxHash(bh.getHeight());
                 for (String one : txCollection){
@@ -57,8 +57,7 @@ public class BlockInfoServiceImpl implements BlockInfoService {
                 }
                 bh.setTXcollection(Txcollection);
             } catch (UnirestException e) {
-//                e.printStackTrace();
-                log.error("xxxxx",e);
+                log.error("按照区块高度查询区块信息错误",e);                 //打印日志和错误
             }
             blockRepository.saveAndFlush(bh);
         }

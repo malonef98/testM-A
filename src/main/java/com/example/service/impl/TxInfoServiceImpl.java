@@ -5,10 +5,12 @@ import com.example.domain.entity.TxInfo;
 import com.example.service.TxInfoService;
 import com.example.untils.FindInfo;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class TxInfoServiceImpl implements TxInfoService {
 
     @Autowired
@@ -27,7 +29,7 @@ public class TxInfoServiceImpl implements TxInfoService {
             try {
                 txInfo = findInfo.findTxByHash(txhash);
             } catch (UnirestException e) {
-                e.printStackTrace();
+                log.error("按照交易哈希查找交易错误",e);
             }
             txRepository.saveAndFlush(txInfo);
         }else {

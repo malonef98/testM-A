@@ -5,18 +5,15 @@ import com.example.service.BlockInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Created by Fant.J.
- */
 @RestController
 @RequestMapping("/block_info")
-public class BlockController {
+public class  BlockController {
 
     @Autowired
     private BlockInfoService blockInfoService;
 
     /**
-     *
+     * 按照数据库ID查询区块数据，返回BlockHead结构体给前端
      * @param id
      * @return
      */
@@ -27,7 +24,7 @@ public class BlockController {
     }
 
     /**
-     *
+     * 按照数据库height查询区块数据，返回BlockHead结构体给前端
      * @param height
      * @return
      */
@@ -38,7 +35,7 @@ public class BlockController {
     }
 
     /**
-     *
+     * 按照数据库fee查询区块数据，返回BlockHead结构体给前端
      * @param fee
      * @return
      */
@@ -49,7 +46,7 @@ public class BlockController {
     }
 
     /**
-     *
+     * 从ChaindiggInfo查询数据，并且存储区块数据带数据库
      */
     @RequestMapping(method = RequestMethod.GET,value = "/save")
     @ResponseBody

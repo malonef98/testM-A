@@ -4,7 +4,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 /**
- * tx
+ * txinfo
  * @author 
  */
 @Data

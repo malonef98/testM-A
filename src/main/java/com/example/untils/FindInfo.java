@@ -18,7 +18,12 @@ import java.util.Set;
 
 public class FindInfo {
 
-    /** 得到每个区块内数据  **/
+    /**
+     *  从ChaindiggInfo获取区块数据
+     * @param id
+     * @return
+     * @throws UnirestException
+     */
     public static JSONObject getBlockData(Integer id) throws UnirestException {
         HttpResponse response =
                 (HttpResponse) Unirest.get("https://info.chaindigg.com/api/api/block?coinType=eth&id="+ id +"&hash=&pageSize=100&pageNumber=0&channelId=&normal=normal").asString();
@@ -28,7 +33,6 @@ public class FindInfo {
     }
 
 
-    /** 网页爬取页数  **/
     public int getLastPage(Integer id) throws UnirestException {
         JSONObject data = getBlockData(id);
         int txconst = data.getInteger("txCount");
@@ -38,7 +42,7 @@ public class FindInfo {
     }
 
 
-    public  BlockHead findBlockByid(int i) throws UnirestException {
+    public  BlockHead findBlockByHeight(int i) throws UnirestException {
 
         JSONObject data = getBlockData(i);
         BlockHead bh = JSON.parseObject(data.toString(), BlockHead.class);
@@ -130,15 +134,6 @@ public class FindInfo {
         }
         return hash;
     }
-    @TestOnly
-    public static void main(String[] args) throws UnirestException {
-        FindInfo findInfo = new FindInfo();
-        List<String> txCollection = new ArrayList<String>();
-        Set<String> Txcollection = new HashSet<>();
-        txCollection = findInfo.getTxHash(4000000);
-        for (String one : txCollection){
-            Txcollection.add(one);
-        }
 
-    }
+
 }
