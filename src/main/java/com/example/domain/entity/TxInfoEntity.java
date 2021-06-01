@@ -9,14 +9,14 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-public class TxInfo {
-    public TxInfo(){
+public class TxInfoEntity {
+    public TxInfoEntity(){
     }
     @Id
     @GeneratedValue()
     private Integer id;
 
-    private String hash;
+    private String  hash;
     
     private Integer blockHeight;
 
@@ -47,5 +47,4 @@ public class TxInfo {
     //交易类型
     private String dataType;
 
-  //  private static final long serialVersionUID = 1L;
 }

@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.domain.entity.TxInfo;
+import com.example.domain.entity.TxInfoEntity;
 import com.example.service.TxInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class TxController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET,value = "/txhash/{txhash}")
-    public TxInfo selectByTxhash(@PathVariable("txhash")String txhash){
+    public TxInfoEntity selectByTxHash(@PathVariable("txhash")String txhash){
         return txInfoService.selectByHash(txhash);
     }
 
@@ -29,8 +29,7 @@ public class TxController {
      */
     @RequestMapping(method = RequestMethod.GET,value = "/saveTx/{hash}")
     @ResponseBody
-    public TxInfo saveByTxhash(@PathVariable("hash")String hash){
-
+    public TxInfoEntity saveByTxhash(@PathVariable("hash")String hash){
         return txInfoService.saveByHash(hash);
     }
 

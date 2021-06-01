@@ -3,18 +3,15 @@ package com.example.untils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.domain.entity.BlockHead;
-import com.example.domain.entity.TxInfo;
+import com.example.domain.entity.BlockHeadEntity;
+import com.example.domain.entity.TxInfoEntity;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.jetbrains.annotations.TestOnly;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class FindInfo {
 
@@ -42,10 +39,10 @@ public class FindInfo {
     }
 
 
-    public  BlockHead findBlockByHeight(int i) throws UnirestException {
+    public BlockHeadEntity findBlockByHeight(int i) throws UnirestException {
 
         JSONObject data = getBlockData(i);
-        BlockHead bh = JSON.parseObject(data.toString(), BlockHead.class);
+        BlockHeadEntity bh = JSON.parseObject(data.toString(), BlockHeadEntity.class);
 
         bh.setTotalDifficulty(data.getString("totalDifficulty"));
         bh.setNextBlockHash(data.getString("nextBlockHash"));
@@ -67,12 +64,12 @@ public class FindInfo {
     }
 
 
-    public TxInfo findTxByHash(String txhash) throws UnirestException {
+    public TxInfoEntity findTxByHash(String txhash) throws UnirestException {
         HttpResponse response = null;
             response = Unirest.get("https://info.chaindigg.com/api/api/txn?coinType=eth&hash=" + txhash + "&channelId="
             ).asString();
 
-        TxInfo com = new TxInfo();
+        TxInfoEntity com = new TxInfoEntity();
         JSONObject jso = JSON.parseObject(response.getBody().toString());
         JSONObject data = jso.getJSONObject("data");
 
@@ -106,8 +103,8 @@ public class FindInfo {
     public List<String> getTxHash(Integer id) throws UnirestException {
         int lastPageNumber =  getLastPage(id);
         List<String> hash = new ArrayList<String>();
-        List<TxInfo> txInfos = new ArrayList<TxInfo>();
-        TxInfo com = new TxInfo();
+        List<TxInfoEntity> txInfoEntities = new ArrayList<TxInfoEntity>();
+        TxInfoEntity com = new TxInfoEntity();
         if (lastPageNumber == 0) {
             HttpResponse response =
                     Unirest.get("https://info.chaindigg.com/api/api/block?coinType=eth&id="+id+"+&hash=&pageSize=100&pageNumber=" + 0 + "&channelId=&normal=normal").asString();

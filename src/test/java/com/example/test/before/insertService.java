@@ -1,6 +1,6 @@
 package com.example.test.before;
 
-import com.example.domain.entity.TxInfo;
+import com.example.domain.entity.TxInfoEntity;
 import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
@@ -38,8 +38,8 @@ public class insertService {
 
 
     /** 向tx_info表放入数据   每个交易具体数据**/
-    public void insertTx(List<TxInfo> txlist) throws SQLException {
-        TxInfo txInfo = new TxInfo();
+    public void insertTx(List<TxInfoEntity> txlist) throws SQLException {
+        TxInfoEntity txInfoEntity = new TxInfoEntity();
         //注册驱动    使用驱动连接数据库
         Connection con = null;
         PreparedStatement stmt = null;
@@ -50,7 +50,7 @@ public class insertService {
         String sql = "insert into tx_info(txhash,blockHeight,fromAddressHash,toAddressHash," +
                 "gasUsed,gasPrice,fee) values(?,?,?,?,?,?,?)";
         try {
-            for (TxInfo t : txlist){
+            for (TxInfoEntity t : txlist){
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1,t.getHash());
                 stmt.setInt(2,t.getBlockHeight());

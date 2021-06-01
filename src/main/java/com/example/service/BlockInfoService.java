@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.domain.entity.BlockHead;
+import com.example.domain.entity.BlockHeadEntity;
 
 /**
  * Created by Fant.J.
@@ -12,21 +12,21 @@ public interface BlockInfoService {
      * @param id
      * @return
      */
-    BlockHead selectById(int id);
+    BlockHeadEntity selectById(int id);
 
     /**
      * 按照height区块高度查询区块数据，返回区块结构体
      * @param height
      * @return
      */
-    BlockHead selectByHeight(int height);
+    BlockHeadEntity selectByHeight(int height);
 
     /**
      * 按照fee费用查询区块数据，返回区块结构体
      * @param fee
      * @return
      */
-    BlockHead selectByFee(String fee);
+    BlockHeadEntity selectByFee(String fee);
 
     /**
      * 存储区块信息到数据库

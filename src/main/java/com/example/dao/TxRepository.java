@@ -1,8 +1,8 @@
 package com.example.dao;
 
-import com.example.domain.entity.TxInfo;
+import com.example.domain.entity.TxInfoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TxRepository extends JpaRepository<TxInfo, Integer> {
-       TxInfo findByHash(String hash);
+public interface TxRepository extends JpaRepository<TxInfoEntity, Integer> {
+       TxInfoEntity findByHash(String hash);
 }

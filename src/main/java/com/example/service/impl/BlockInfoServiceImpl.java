@@ -1,8 +1,8 @@
 package com.example.service.impl;
 
 import com.example.dao.BlockRepository;
-import com.example.domain.entity.BlockHead;
-import com.example.domain.entity.TxInfo;
+import com.example.domain.entity.BlockHeadEntity;
+import com.example.domain.entity.TxInfoEntity;
 import com.example.service.*;
 import com.example.untils.FindInfo;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -24,38 +24,38 @@ public class BlockInfoServiceImpl implements BlockInfoService {
     private BlockRepository blockRepository;
 
     @Override
-    public BlockHead selectById(int id) {
-        Optional<BlockHead> optional = blockRepository.findById(id);
-        BlockHead blockHead = optional.get();
-        return blockHead;
+    public BlockHeadEntity selectById(int id) {
+        Optional<BlockHeadEntity> optional = blockRepository.findById(id);
+        BlockHeadEntity blockHeadEntity = optional.get();
+        return blockHeadEntity;
     }
 
     @Override
-    public BlockHead selectByHeight(int height) {
+    public BlockHeadEntity selectByHeight(int height) {
         return blockRepository.findByHeight(height);
     }
 
     @Override
-    public BlockHead selectByFee(String fee) {
-        BlockHead blockHead = blockRepository.findByFee(fee);
-        return blockHead;
+    public BlockHeadEntity selectByFee(String fee) {
+        BlockHeadEntity blockHeadEntity = blockRepository.findByFee(fee);
+        return blockHeadEntity;
     }
 
     @Override
     public void save() {
         FindInfo findInfo = new FindInfo();
-        BlockHead bh = new BlockHead();
-        TxInfo txInfo = new TxInfo();
+        BlockHeadEntity bh = new BlockHeadEntity();
+        TxInfoEntity txInfoEntity = new TxInfoEntity();
         List<String> txCollection = new ArrayList<String>();
         for (int i = 4000000 ; i < 4001000 ; i ++){
             try {
                 bh = findInfo.findBlockByHeight(i);
-                Set<String> Txcollection = new HashSet<>();
+                Set<String> collection = new HashSet<>();
                 txCollection = findInfo.getTxHash(bh.getHeight());
                 for (String one : txCollection){
-                    Txcollection.add(one);
+                    collection.add(one);
                 }
-                bh.setTXcollection(Txcollection);
+                bh.setTxCollection(collection);
             } catch (UnirestException e) {
                 log.error("按照区块高度查询区块信息错误",e);                 //打印日志和错误
             }

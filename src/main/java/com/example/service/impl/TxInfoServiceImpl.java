@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import com.example.dao.TxRepository;
-import com.example.domain.entity.TxInfo;
+import com.example.domain.entity.TxInfoEntity;
 import com.example.service.TxInfoService;
 import com.example.untils.FindInfo;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -17,26 +17,25 @@ public class TxInfoServiceImpl implements TxInfoService {
     private TxRepository txRepository;
 
     @Override
-    public TxInfo selectByHash(String hash) {
+    public TxInfoEntity selectByHash(String hash) {
         return txRepository.findByHash(hash);
     }
 
     @Override
-    public TxInfo saveByHash(String txhash) {
+    public TxInfoEntity saveByHash(String txhash) {
         FindInfo findInfo = new FindInfo();
-        TxInfo txInfo = new TxInfo();
+        TxInfoEntity txInfoEntity = new TxInfoEntity();
         if (txRepository.findByHash(txhash) == null){
             try {
-                txInfo = findInfo.findTxByHash(txhash);
+                txInfoEntity = findInfo.findTxByHash(txhash);
             } catch (UnirestException e) {
                 log.error("按照交易哈希查找交易错误",e);
             }
-            txRepository.saveAndFlush(txInfo);
+            txRepository.saveAndFlush(txInfoEntity);
         }else {
             return txRepository.findByHash(txhash);
         }
-
-        return txInfo;
+        return txInfoEntity;
     }
 
 }

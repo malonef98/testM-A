@@ -1,10 +1,13 @@
 package com.example.controller;
 
-import com.example.domain.entity.BlockHead;
+import com.example.domain.entity.BlockHeadEntity;
 import com.example.service.BlockInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 控制器
+ */
 @RestController
 @RequestMapping("/block_info")
 public class  BlockController {
@@ -19,7 +22,7 @@ public class  BlockController {
      */
     @RequestMapping(method = RequestMethod.GET,value = "/id/{id}")
     @ResponseBody
-    public BlockHead select(@PathVariable("id")int id){
+    public BlockHeadEntity select(@PathVariable("id")int id){
         return blockInfoService.selectById(id);
     }
 
@@ -30,7 +33,7 @@ public class  BlockController {
      */
     @RequestMapping(method = RequestMethod.GET,value = "/height/{height}")
     @ResponseBody
-    public BlockHead selectByheight(@PathVariable("height")int height){
+    public BlockHeadEntity selectByHeight(@PathVariable("height")int height){
         return blockInfoService.selectByHeight(height);
     }
 
@@ -41,7 +44,7 @@ public class  BlockController {
      */
     @RequestMapping(method = RequestMethod.GET,value = "/fee/{fee}")
     @ResponseBody
-    public BlockHead select(@PathVariable("fee")String fee){
+    public BlockHeadEntity select(@PathVariable("fee")String fee){
         return blockInfoService.selectByFee(fee);
     }
 
