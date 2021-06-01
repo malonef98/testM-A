@@ -1,5 +1,6 @@
-package com.example.service;
+package com.example.test.before;
 
+import com.example.domain.entity.TxInfo;
 import com.example.untils.JDBCUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -9,8 +10,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import com.example.pojo.BlockHead;
-import com.example.pojo.Tx;
+import com.example.domain.entity.BlockHead;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,8 +43,8 @@ public class Restful {
     public List<String> getTxHash(Integer id) throws UnirestException {
         int lastPageNumber =  getLastPage(id);
         List<String> hash = new ArrayList<String>();
-        List<Tx> tx = new ArrayList<Tx>();
-        Tx com = new Tx();
+        List<TxInfo> txInfos = new ArrayList<TxInfo>();
+        TxInfo com = new TxInfo();
         if (lastPageNumber == 0) {
             HttpResponse response =
                     Unirest.get("https://info.chaindigg.com/api/api/block?coinType=eth&id="+id+"+&hash=&pageSize=100&pageNumber=" + 0 + "&channelId=&normal=normal").asString();
@@ -74,11 +74,11 @@ public class Restful {
 
 
     /** 根据交易hash值获取每个交易的详细数据  **/
-    public Tx getTX(String txhash) throws UnirestException {
+    public TxInfo getTX(String txhash) throws UnirestException {
                 HttpResponse response =
                         Unirest.get("https://info.chaindigg.com/api/api/txn?coinType=eth&hash=" + txhash + "&channelId="
                         ).asString();
-                Tx com = new Tx();
+                TxInfo com = new TxInfo();
                 JSONObject jso = JSON.parseObject(response.getBody().toString());
                 JSONObject data = jso.getJSONObject("data");
                     //高度
@@ -155,8 +155,8 @@ public class Restful {
     @CrossOrigin
     @RequestMapping(value = "/hash/{hash}",method = RequestMethod.GET)
     @ResponseBody
-    public Tx gettxhash (@PathVariable("hash") String hash ){
-        Tx m = new Tx();
+    public TxInfo gettxhash (@PathVariable("hash") String hash ){
+        TxInfo m = new TxInfo();
 
         try {
             m = selectTx(hash);
@@ -225,11 +225,11 @@ public class Restful {
     }
 
     //查找指定hash交易信息
-    public static Tx selectTx(String i) throws UnirestException, SQLException {
+    public static TxInfo selectTx(String i) throws UnirestException, SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Tx one = new Tx();
+        TxInfo one = new TxInfo();
 
         try {
             con = JDBCUtils.getConnection();
@@ -254,7 +254,7 @@ public class Restful {
                 one.setFee(result.getString("fee"));
                 one.setTime(result.getString("time_stamp"));
                 one.setDataType(result.getString("dataType"));
-                one.setDesc(result.getString("b_desc"));
+                one.setState(result.getString("b_desc"));
                 one.setValue(result.getString("outputTotal"));
             }
 
@@ -290,13 +290,13 @@ public class Restful {
             bh.setTxCount(data.getString("txCount"));
 
             List<String> txhash = a.getTxHash(bh.getId());
-            List<Tx> tx_info = new ArrayList<Tx>();
+            List<TxInfo> tx_Info_info = new ArrayList<TxInfo>();
             for (String hash : txhash) {
-                tx_info.add(a.getTX(hash));
+                tx_Info_info.add(a.getTX(hash));
             }
 
             insertService insert = new insertService();
-            insert.insertTx(tx_info);
+            insert.insertTx(tx_Info_info);
             insert.insertTxlist(txhash, bh.getHash());
 
             try {

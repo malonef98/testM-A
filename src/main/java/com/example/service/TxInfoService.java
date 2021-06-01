@@ -1,9 +1,21 @@
 package com.example.service;
 
-import com.example.pojo.BlockHead;
-import com.example.pojo.Tx;
+import com.example.domain.entity.TxInfo;
 
 public interface TxInfoService {
-        /** 查询单个*/
-        public Tx selectByHash(String hash);
+
+
+    /**
+     * 按照交易hash值查询交易详细信息
+     * @param hash
+     * @return
+     */
+    TxInfo selectByHash(String hash);
+
+    /**
+     * 存储交易数据都数据库
+     * @param txhash
+     * @return
+     */
+    TxInfo saveByHash(String txhash);
 }
